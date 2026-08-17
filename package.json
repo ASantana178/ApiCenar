@@ -1,0 +1,43 @@
+{
+  "name": "apicenar",
+  "version": "1.0.0",
+  "description": "ApiCenar - API REST JWT (proyecto final ITLA)",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
+    "qa": "cross-env NODE_ENV=qa nodemon src/server.js",
+    "start": "cross-env NODE_ENV=development node src/server.js",
+    "seed": "cross-env NODE_ENV=development node src/seeds/initial.js",
+    "seed:qa": "cross-env NODE_ENV=qa node src/seeds/initial.js",
+    "db:up": "docker start apicenar-mongo 2>nul || docker run -d --name apicenar-mongo -p 27017:27017 --restart unless-stopped mongo:7",
+    "db:down": "docker stop apicenar-mongo"
+  },
+  "keywords": [
+    "apicenar",
+    "api",
+    "express",
+    "jwt",
+    "swagger"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^9.9.1",
+    "morgan": "^1.11.0",
+    "multer": "^2.2.0",
+    "nodemailer": "^9.0.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
