@@ -1,5 +1,7 @@
 # ApiCenar
 
+Repositorio: https://github.com/Adner2654/ApiCenar
+
 API REST del proyecto final ITLA (pedidos / delivery).  
 Proyecto **separado** de la web `AppCenar`.
 
