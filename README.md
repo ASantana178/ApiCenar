@@ -20,6 +20,7 @@ Proyecto **separado** de la web `AppCenar`.
 cd C:\Users\adnersantana\source\repos\ApiCenar
 npm install
 copy .env.example .env
+# Rellena EMAIL_USER / EMAIL_PASS de Mailtrap
 npm run db:up
 npm run seed
 npm run dev
@@ -27,35 +28,25 @@ npm run dev
 
 - API: http://localhost:4000/api/health  
 - Swagger: http://localhost:4000/api-docs  
+- Tipos públicos: http://localhost:4000/api/commerce-types  
 
 Admin seed: `admin@apicenar.local` / `Admin123!`
 
-## Estructura
+## Rol 1 (tu parte) — endpoints
 
-```text
-ApiCenar/
-├── src/
-│   ├── config/       # env, database, swagger
-│   ├── models/       # User, Commerce, CommerceType, Configuration
-│   ├── controllers/
-│   ├── routes/       # /api/auth, /account, /admin, /configurations
-│   ├── middleware/   # JWT, validate, upload
-│   ├── services/     # token, mail
-│   ├── validators/
-│   ├── utils/
-│   ├── seeds/
-│   ├── app.js
-│   └── server.js
-├── uploads/
-├── .env
-└── package.json
-```
+| Área | Endpoints |
+|------|-----------|
+| Auth | `POST /api/auth/login`, `register-client`, `register-delivery`, `register-commerce`, `GET|POST /api/auth/confirm-email`, `forgot-password`, `reset-password` |
+| Account | `GET|PATCH /api/account/me` |
+| Admin | dashboard, users (clients/deliveries/commerces/admins), status, commerce-types CRUD |
+| Config | `GET/PUT /api/configurations`, `GET /api/configurations/:key` |
+| Público | `GET /api/commerce-types` (para registro de comercios) |
 
 ## División por rol
 
 | Rol | Módulos API |
 |-----|-------------|
-| **Rol 1 (tú)** | Auth, Account, Admin, Configurations, Commerce Types (admin) |
+| **Rol 1 (tú)** | Auth, Account, Admin, Configurations, Commerce Types |
 | **Rol 2** | Categories, Products, Orders (commerce/delivery) |
 | **Rol 3** | Catalog client, Addresses, Favorites, Orders (client) |
 
@@ -66,9 +57,3 @@ ApiCenar/
 - Header: `Authorization: Bearer {token}`
 - Listados: `page`, `pageSize`, `search`, `sortBy`, `sortDirection`
 - Bases distintas: `apicenar_dev` / `apicenar_qa`
-
-## Estado actual
-
-Scaffold listo: servidor, Mongo, modelos core, JWT middleware, Swagger base, rutas montadas (stubs 501), seed.
-
-Siguiente paso Rol 1: implementar Auth JWT completo.

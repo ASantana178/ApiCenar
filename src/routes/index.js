@@ -5,6 +5,10 @@ const authRoutes = require('./auth.routes');
 const accountRoutes = require('./account.routes');
 const adminRoutes = require('./admin.routes');
 const configurationsRoutes = require('./configurations.routes');
+const commerceTypesRoutes = require('./commerce-types.routes');
+
+// Carga modelos compartidos (Order/Product/Category/Favorite) para dashboard/cascada
+require('../models/shared');
 
 const router = express.Router();
 
@@ -13,14 +17,6 @@ router.use('/auth', authRoutes);
 router.use('/account', accountRoutes);
 router.use('/admin', adminRoutes);
 router.use('/configurations', configurationsRoutes);
-
-// Placeholders Rol 2 / Rol 3 (montar cuando implementen)
-// router.use('/orders', ordersRoutes);
-// router.use('/addresses', addressesRoutes);
-// router.use('/favorites', favoritesRoutes);
-// router.use('/categories', categoriesRoutes);
-// router.use('/products', productsRoutes);
-// router.use('/commerce', commerceRoutes);
-// router.use('/commerce-types', clientCommerceTypesRoutes);
+router.use('/commerce-types', commerceTypesRoutes);
 
 module.exports = router;

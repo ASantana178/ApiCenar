@@ -1,13 +1,12 @@
 /**
- * Health / bootstrap controller
- * Auth, Account, Admin controllers se implementan en la siguiente fase (Rol 1).
+ * Health controller — API bootstrap check.
  */
 
 function health(_req, res) {
   res.json({
     ok: true,
     service: 'ApiCenar',
-    message: 'API scaffold ready',
+    message: 'API ready (Rol 1: Auth / Account / Admin / Configurations)',
   });
 }
 

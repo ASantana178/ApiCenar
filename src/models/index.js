@@ -1,6 +1,16 @@
-// Placeholders para Rol 2 / Rol 3 — se implementan en sus módulos.
-// Mantener nombres en inglés según el documento ApiCenar.
+const User = require('./User');
+const Commerce = require('./Commerce');
+const CommerceType = require('./CommerceType');
+const Configuration = require('./Configuration');
+const { Order, Category, Product, Favorite } = require('./shared');
 
 module.exports = {
-  // Order, Address, Favorite, Category, Product
+  User,
+  Commerce,
+  CommerceType,
+  Configuration,
+  Order,
+  Category,
+  Product,
+  Favorite,
 };

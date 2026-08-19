@@ -5,6 +5,8 @@
  * Uso: npm run seed
  */
 
+const fs = require('fs');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 
 const config = require('../config/env');
@@ -17,10 +19,23 @@ const ADMIN_EMAIL = 'admin@apicenar.local';
 const ADMIN_USERNAME = 'admin';
 const ADMIN_PASSWORD = 'Admin123!';
 
+const PLACEHOLDER_SVG = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128">
+  <rect width="128" height="128" fill="#d8efe4"/>
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#0d4f35" font-family="sans-serif" font-size="14">ApiCenar</text>
+</svg>`;
+
+function ensureIcon(relativePath) {
+  const abs = path.join(process.cwd(), relativePath.replace(/^\//, ''));
+  const dir = path.dirname(abs);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  if (!fs.existsSync(abs)) fs.writeFileSync(abs, PLACEHOLDER_SVG, 'utf8');
+  return relativePath.startsWith('/') ? relativePath : `/${relativePath}`;
+}
+
 const COMMERCE_TYPES = [
-  { name: 'Restaurant', icon: '/uploads/commerce-types/restaurant.png' },
-  { name: 'Supermarket', icon: '/uploads/commerce-types/supermarket.png' },
-  { name: 'Pharmacy', icon: '/uploads/commerce-types/pharmacy.png' },
+  { name: 'Restaurant', icon: '/uploads/commerce-types/restaurant.svg' },
+  { name: 'Supermarket', icon: '/uploads/commerce-types/supermarket.svg' },
+  { name: 'Pharmacy', icon: '/uploads/commerce-types/pharmacy.svg' },
 ];
 
 async function seedAdmin() {
@@ -69,12 +84,17 @@ async function seedItbis() {
 
 async function seedCommerceTypes() {
   for (const item of COMMERCE_TYPES) {
+    const icon = ensureIcon(item.icon);
     const exists = await CommerceType.findOne({ name: item.name });
     if (exists) {
+      if (exists.icon !== icon) {
+        exists.icon = icon;
+        await exists.save();
+      }
       console.log('[seed] Commerce type exists:', item.name);
       continue;
     }
-    await CommerceType.create(item);
+    await CommerceType.create({ name: item.name, icon });
     console.log('[seed] Commerce type created:', item.name);
   }
 }

@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const multer = require('multer');
 const swaggerUi = require('swagger-ui-express');
 
 const config = require('./config/env');
@@ -24,8 +25,11 @@ app.use('/api', apiRoutes);
 
 app.use((err, _req, res, _next) => {
   console.error('[error]', err);
+  if (err instanceof multer.MulterError || err.message === 'Only image files are allowed') {
+    return res.status(400).json({ message: err.message });
+  }
   const status = err.status || err.statusCode || 500;
-  res.status(status).json({
+  return res.status(status).json({
     message: err.message || 'Internal server error',
   });
 });
