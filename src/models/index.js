@@ -1,16 +1,11 @@
-const User = require('./User');
-const Commerce = require('./Commerce');
-const CommerceType = require('./CommerceType');
-const Configuration = require('./Configuration');
-const { Order, Category, Product, Favorite } = require('./shared');
-
 module.exports = {
-  User,
-  Commerce,
-  CommerceType,
-  Configuration,
-  Order,
-  Category,
-  Product,
-  Favorite,
+  User: require('./User'),
+  Commerce: require('./Commerce'),
+  CommerceType: require('./CommerceType'),
+  Configuration: require('./Configuration'),
+  Address: require('./Address'),
+  Favorite: require('./Favorite'),
+  Category: require('./Category'),
+  Product: require('./Product'),
+  Order: require('./Order'),
 };

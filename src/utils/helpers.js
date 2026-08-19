@@ -18,4 +18,29 @@ function parseSort(query = {}, defaultSortBy = 'createdAt') {
   return { [sortBy]: direction };
 }
 
-module.exports = { createToken, parsePagination, parseSort };
+function escapeRegex(value = '') {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function round2(value) {
+  return Math.round((Number(value) + Number.EPSILON) * 100) / 100;
+}
+
+function buildPageResult(items, total, page, pageSize) {
+  return {
+    items,
+    page,
+    pageSize,
+    total,
+    totalPages: Math.max(1, Math.ceil(total / pageSize)),
+  };
+}
+
+module.exports = {
+  createToken,
+  parsePagination,
+  parseSort,
+  escapeRegex,
+  round2,
+  buildPageResult,
+};
